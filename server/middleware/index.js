@@ -1,15 +1,16 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const mongoSanitize = require('express-mongo-sanitize');
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const mongoSanitize = require("express-mongo-sanitize");
 // const helmet = require('helmet');
-const xssClean = require('xss-clean');
-const expressRateLimit = require('express-rate-limit');
-const hpp = require('hpp');
-// const cors = require('cors');
-const logger = require('./logger');
+const xssClean = require("xss-clean");
+const expressRateLimit = require("express-rate-limit");
+const hpp = require("hpp");
+const cors = require("cors");
+const logger = require("./logger");
 
 const configureMiddleware = (app) => {
   // Body-parser middleware
+  app.use(cors());
   app.use(express.json());
 
   // Cookie Parser
@@ -29,7 +30,7 @@ const configureMiddleware = (app) => {
     expressRateLimit({
       windowMs: 10 * 60 * 1000,
       max: 100,
-    }),
+    })
   );
 
   // Prevent http param pollution
