@@ -10,7 +10,13 @@ const logger = require("./logger");
 
 const configureMiddleware = (app) => {
   // Body-parser middleware
-  app.use(cors());
+  app.use(
+    cors({
+      origin: "https://poker-frontend.netlify.app/", // Replace with your allowed origin
+      methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+      credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    })
+  );
   app.use(express.json());
 
   // Cookie Parser
@@ -35,9 +41,6 @@ const configureMiddleware = (app) => {
 
   // Prevent http param pollution
   app.use(hpp());
-
-  // Enable CORS
-  // app.use(cors());
 
   // Custom logging middleware
   app.use(logger);
